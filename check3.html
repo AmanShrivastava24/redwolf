@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: none;
+      outline: none;
+    }
+
+    #accordion .panel {
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0 0 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #accordion .panel-heading {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      margin-bottom: 10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    #accordion .panel-heading:before,
+    #accordion .panel-heading:after {
+      content: "";
+      width: 50%;
+      height: 20%;
+      box-shadow: 0 15px 5px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      bottom: 15px;
+      left: 10px;
+      transform: rotate(-3deg);
+      z-index: -1;
+    }
+
+    #accordion .panel-heading:after {
+      left: auto;
+      right: 10px;
+      transform: rotate(3deg);
+    }
+
+    #accordion .panel-title a {
+      display: block;
+      padding: 15px 70px 15px 70px;
+      margin: 0;
+      background: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #d11149;
+      border-radius: 0;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+      position: relative;
+    }
+
+    #accordion .panel-title a:before,
+    #accordion .panel-title a.collapsed:before {
+      content: "\f106";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      width: 55px;
+      height: 100%;
+      text-align: center;
+      line-height: 50px;
+      border-left: 2px solid #D11149;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    #accordion .panel-title a.collapsed:before {
+      content: "\f107";
+    }
+
+    #accordion .panel-title a .icon {
+      display: inline-block;
+      width: 55px;
+      height: 100%;
+      border-right: 2px solid #d11149;
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 50px;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #accordion .panel-body {
+      padding: 10px 20px;
+      margin: 0 0 20px;
+      border-bottom: 3px solid #d11149;
+      border-top: none;
+      background: #fff;
+      font-size: 15px;
+      color: #333;
+      line-height: 27px;
+    }
+
+    #accordion {
+      .button.collapse i:before {
+        content: "\f068";
+      }
+
+      .button.collapse i:before {
+        content: "\f067";
+      }
+
+      .card-header {
+        margin-bottom: 8px;
+      }
+
+      .accordion-title {
+        position: relative;
+        display: block;
+        padding: 8px 0 8px 50px;
+        background: #213744;
+        border-radius: 8px;
+        overflow: hidden;
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        width: 100%;
+        text-align: left;
+        transition: all .4s ease-in-out;
+
+        i {
+          position: absolute;
+          width: 40px;
+          height: 100%;
+          left: 0;
+          top: 0;
+          color: #fff;
+          background: radial-gradient(rgba(#213744, .8), #213744);
+          text-align: center;
+          border-right: 1px solid transparent;
+        }
+
+        &:hover {
+          padding-left: 60px;
+          background: #213744;
+          color: #fff;
+
+          i {
+            border-right: 1px solid #fff;
+          }
+        }
+      }
+
+      .accordion-body {
+        padding: 40px 55px;
+
+
+        ul {
+          list-style: none;
+          margin-left: 0;
+          padding-left: 0;
+        }
+
+        li {
+          padding-left: 1.2rem;
+          text-indent: -1.2rem;
+
+          &:before {
+            content: "\f10a";
+            padding-right: 5px;
+            font-family: "Flaticon";
+            font-size: 16px;
+            font-style: normal;
+            color: #213744;
+          }
+        }
+      }
+    }
+
+
+    .timeline {
+    position: relative;
+    padding:4px 0 0 0;
+    margin-top:22px;
+    list-style: none;
+}
+
+.timeline>li:nth-child(even) {
+    position: relative;
+    margin-bottom: 50px;
+    height: 180px;
+    right:-100px;
+}
+
+.timeline>li:nth-child(odd) {
+    position: relative;
+    margin-bottom: 50px;
+    height: 180px;
+    left:-100px;
+}
+
+.timeline>li:before,
+.timeline>li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline>li:after {
+    clear: both;
+    min-height: 170px;
+}
+
+.timeline > li .timeline-panel {
+  position: relative;
+  float: left;
+  width: 41%;
+  padding: 0 20px 20px 30px;
+  text-align: right;
+}
+
+.timeline>li .timeline-panel:before {
+    right: auto;
+    left: -15px;
+    border-right-width: 15px;
+    border-left-width: 0;
+}
+
+.timeline>li .timeline-panel:after {
+    right: auto;
+    left: -14px;
+    border-right-width: 14px;
+    border-left-width: 0;
+}
+
+.timeline>li .timeline-image {
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    border: 7px solid #3b5998;
+    border-radius: 100%;
+    background-color: #3b5998;
+    box-shadow: 0 0 5px #4582ec;
+    width: 200px;
+    height: 200px;
+    margin-left: -100px;
+}
+
+.timeline>li .timeline-image h4 {
+    margin-top: 12px;
+    font-size: 10px;
+    line-height: 14px;
+}
+
+.timeline>li.timeline-inverted>.timeline-panel {
+    float: right;
+    padding: 0 30px 20px 20px;
+    text-align: left;
+}
+
+.timeline>li.timeline-inverted>.timeline-panel:before {
+    right: auto;
+    left: -15px;
+    border-right-width: 15px;
+    border-left-width: 0;
+}
+
+.timeline>li.timeline-inverted>.timeline-panel:after {
+    right: auto;
+    left: -14px;
+    border-right-width: 14px;
+    border-left-width: 0;
+}
+
+.timeline>li:last-child {
+    margin-bottom: 0;
+}
+
+.timeline .timeline-heading h4 {
+  margin-top:22px;
+    margin-bottom: 4px;
+    padding:0;
+    color: #b3b3b3;
+}
+
+.timeline .timeline-heading h4.subheading {
+  margin:0;
+  padding:0;
+    text-transform: none;
+    font-size:18px;
+    color:#333333;
+}
+
+.timeline .timeline-body>p,
+.timeline .timeline-body>ul {
+    margin-bottom: 0;
+    color:#808080;
+}
+/*Style for even div.line*/
+.timeline>li:nth-child(odd) .line:before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 690px;
+    width: 4px;
+    height:340px;
+    background-color: #3b5998;
+    -ms-transform: rotate(-44deg); /* IE 9 */
+    -webkit-transform: rotate(-44deg); /* Safari */
+    transform: rotate(-44deg);
+    box-shadow: 0 0 5px #4582ec;
+}
+/*Style for odd div.line*/
+.timeline>li:nth-child(even) .line:before  {
+    content: "";
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 450px;
+    width: 4px;
+    height:340px;
+    background-color: #3b5998;
+    -ms-transform: rotate(44deg); /* IE 9 */
+    -webkit-transform: rotate(44deg); /* Safari */
+    transform: rotate(44deg);
+    box-shadow: 0 0 5px #4582ec;
+}
+/* Medium Devices, .visible-md-* */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .timeline > li:nth-child(even) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    right: 0px;
+  }
+  .timeline > li:nth-child(odd) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    left: 0px;
+  }
+  .timeline>li:nth-child(even) .timeline-image {
+    left: 0;
+    margin-left: 0px;
+  }
+  .timeline>li:nth-child(odd) .timeline-image {
+    left: 690px;
+    margin-left: 0px;
+  }
+  .timeline > li:nth-child(even) .timeline-panel {
+    width: 76%;
+    padding: 0 0 20px 0px;
+    text-align: left;
+  }
+  .timeline > li:nth-child(odd) .timeline-panel {
+    width: 70%;
+    padding: 0 0 20px 0px;
+    text-align: right;
+  }
+  .timeline > li .line {
+    display: none;
+  }
+}
+/* Small Devices, Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .timeline > li:nth-child(even) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    right: 0px;
+  }
+  .timeline > li:nth-child(odd) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    left: 0px;
+  }
+  .timeline>li:nth-child(even) .timeline-image {
+    left: 0;
+    margin-left: 0px;
+  }
+  .timeline>li:nth-child(odd) .timeline-image {
+    left: 520px;
+    margin-left: 0px;
+  }
+  .timeline > li:nth-child(even) .timeline-panel {
+    width: 70%;
+    padding: 0 0 20px 0px;
+    text-align: left;
+  }
+  .timeline > li:nth-child(odd) .timeline-panel {
+    width: 70%;
+    padding: 0 0 20px 0px;
+    text-align: right;
+  }
+  .timeline > li .line {
+    display: none;
+  }
+}
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 767px) {
+  .timeline > li:nth-child(even) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    right: 0px;
+  }
+  .timeline > li:nth-child(odd) {
+    margin-bottom: 0px;
+    min-height: 0px;
+    left: 0px;
+  }
+  .timeline>li .timeline-image {
+    position: static;
+    width: 150px;
+    height: 150px;
+    margin-bottom:0px;
+  }
+  .timeline>li:nth-child(even) .timeline-image {
+    left: 0;
+    margin-left: 0;
+  }
+  .timeline>li:nth-child(odd) .timeline-image {
+    float:right;
+    left: 0px;
+    margin-left:0;
+  }
+  .timeline > li:nth-child(even) .timeline-panel {
+    width: 100%;
+    padding: 0 0 20px 14px;
+  }
+  .timeline > li:nth-child(odd) .timeline-panel {
+    width: 100%;
+    padding: 0 14px 20px 0px;
+  }
+  .timeline > li .line {
+    display: none;
+  }
+}
+
+
+
+
+
+
+    
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="INDEX.HTML"><img src="red wolf.png"
+            style="width: 50px; padding-bottom:40px; "></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="INDEX.HTML">Home</a></li>
+          <li><a href="check3.html">About</a></li>
+          <li><a href="service.html">Service</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+
+
+          <li><a href="contact us.html">Contact us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Admin</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+  </nav>
+
+  <br>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="text-center">About the company </h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <ul class="timeline">
+        <li>
+          <div class="timeline-image">
+            <img class="img-circle img-responsive" src="man-looking-attractive.webp" style="height: 185px;"                  alt="">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4>Step One</h4>
+              <h4 class="subheading">Subtitle</h4>
+            </div>
+            <div class="timeline-body">
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+          <div class="line"></div>
+        </li>
+        <li class="timeline-inverted">
+          <div class="timeline-image">
+            <img class="img-circle img-responsive"  src="man-looking-attractive.webp" style="height: 185px; "alt="">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4>Step Two</h4>
+              <h4 class="subheading">Subtitle</h4>
+            </div>
+            <div class="timeline-body">
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+          <div class="line"></div>
+        </li>
+        <li>
+          <div class="timeline-image">
+            <img class="img-circle img-responsive"  src="man-looking-attractive.webp" style="height: 185px;" alt="">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4>Step Three</h4>
+              <h4 class="subheading">Subtitle</h4>
+            </div>
+            <div class="timeline-body">
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+          <div class="line"></div>
+        </li>
+        <li class="timeline-inverted">
+          <div class="timeline-image">
+            <img class="img-circle img-responsive"  src="man-looking-attractive.webp" style="height: 185px;" alt="">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4>Step Three</h4>
+              <h4 class="subheading">Subtitle</h4>
+            </div>
+            <div class="timeline-body">
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+          <div class="line"></div>
+        </li>
+        <li>
+          <div class="timeline-image">
+            <img class="img-circle img-responsive"  src="man-looking-attractive.webp" style="height: 185px;" alt="">
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4>Bonus Step</h4>
+              <h4 class="subheading">Subtitle</h4>
+            </div>
+            <div class="timeline-body">
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-body-tertiary text-muted" style="background-color: black;">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
+
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Company name
+            </h6>
+            <p style="text-align: justify; margin-left:-20px ;">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ducimus vero dolorum voluptatem. Eligendi
+              quisquam vitae dolores asperiores temporibus nesciunt vel deserunt nostrum nisi et, laudantium neque,
+              cupiditate illo vero a? Dolore, maiores laudantium vel labore saepe quaerat incidunt, non, odit
+              reprehenderit aperiam quae dicta dolorum ex laboriosam optio minima.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Products
+            </h6>
+            <p>
+              <a href="service.html" class="text-reset">Websites Development </a>
+            </p>
+            <p>
+              <a href="service.html" class="text-reset">Software maintainance</a>
+            </p>
+            <p>
+              <a href="service.html" class="text-reset">Application Development </a>
+            </p>
+            <p>
+              <a href="service.html" class="text-reset">Digital Marketing </a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="https://www.facebook.com/" class="text-reset">Facebook</a>
+            </p>
+            <p>
+              <a href="https://www.instagram.com/accounts/login/" class="text-reset"> Instagram</a>
+            </p>
+            <p>
+              <a href="https://twitter.com/i/flow/login" class="text-reset">Twitter</a>
+            </p>
+            <p>
+              <a href="https://www.linkedin.com/login" class="text-reset">Linkedin</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> Red Wolf Hi-tech Pvt.Ltd.
+              214,Tower-4 Assotech Business Cresterra Sector 135, Noida - 201301.
+            </p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              redwolfhitect.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i>+91 9988908111</p>
+            <p><i class="fas fa-print me-3"></i>+91 9988401333</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="https://redwolfhitech.com/">redwolfhitech</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+  <br>
+</body>
+</html>
